@@ -120,6 +120,24 @@ extension BookView {
                 Text("Kamuran Şipal")
                 Spacer()
             }.padding(.horizontal,16)
+            HStack{
+                Text("Basım:").bold()
+                Text("Türkçe · Türkiye · Say Yayınları · Şubat 2016 (İlk yayınlanma: 1 Temmuz 2021) · Karton kapak · 9786050201086")
+                Spacer()
+            }.padding(.horizontal,16)
+            HStack{
+                Text("Tür").bold()
+                Text("Araştırma-İnceleme").background(Color.gray)
+                Spacer()
+            }.padding(.horizontal,16)
+            HStack{
+                Text("Diğer Baskılar:").bold()
+                Image("totemTabu").resizable()
+                    .frame(width: 12,height: 16)
+                Spacer()
+            }.padding(.horizontal,16)
+            Text("Freud’a göre ilkel insan bizim çağdaşımız sayılır. Tarihöncesi çağlardaki insanların geçirdiği evreler, gündelik yaşamlar, sanatları, oluşturdukları söylenceler ve mitlerde gelişim sürecimizin önceki basamakları hakkında ciddi izlere rastlar, onlarda kendimize benzerlikler buluruz. Bugün bazı topluluklarda izlerine rastlansa da Freud’un deyimiyle dinsel-sosyal bir kurum olan totemizmin etkilerinin azalmasına karşılık, tabu konusu farklı biçimlere bürünerek de olsa azımsanmayacak derecede yakınımızda durur. ")
+                .padding(.horizontal,16)
         }
     }
 }

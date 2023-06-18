@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Combine
+
 final class BookViewModel: ObservableObject{
     private var dataController: BookDataController
     
