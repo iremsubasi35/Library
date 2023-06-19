@@ -21,6 +21,19 @@ struct SearchView: View {
             Spacer()
         }.padding(.top,16)
             .padding(.horizontal,16)
+        VStack{
+            List(viewModel.searchResults) { results in
+                HStack{
+                    AsyncImage(url: results.image) { image in
+                        image.image?.resizable()
+                    }
+                    VStack{
+                        Text(results.name)
+                        Text(results.job)
+                    }
+                }
+            }
+        }.padding(.horizontal,16)
             
                  .onAppear {
                      viewModel.setupBindings()

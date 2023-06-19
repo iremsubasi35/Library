@@ -10,7 +10,7 @@ import Combine
 
 struct SearchResult: Identifiable {
     let id: UUID = .init()
-    var image: String
+    var image: URL
     var name: String
     var job: String
     var userName: String
@@ -70,21 +70,21 @@ final class SearchViewModel: ObservableObject{
                         case "book":
                             if let title = result["title"] as? String,
                                let writer = result["author"] as? String,
-                               let imageURL = result["image"] as? String {
+                               let imageURL = result["image"] as? URL {
                                 let searchResult = SearchResult(image: imageURL, name: title, job: "", userName: "", author: writer)
                                 searchResults.append(searchResult)
                             }
                         case "author":
                             if let name = result["name"] as? String,
                                let job = result["job"] as? String,
-                               let imageURL = result["image"] as? String {
+                               let imageURL = result["image"] as? URL {
                                 let searchResult = SearchResult(image: imageURL, name: name, job: job, userName: "", author: "")
                                 searchResults.append(searchResult)
                             }
                         case "reader":
                             if let name = result["name"] as? String,
                                let nickName = result["userName"] as? String,
-                                let imageURL = result["image"] as? String{
+                                let imageURL = result["image"] as? URL{
                                 let searchResult = SearchResult(image: imageURL, name: name, job: "", userName: nickName, author: "")
                                 searchResults.append(searchResult)
                             }

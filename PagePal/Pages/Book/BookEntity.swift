@@ -14,13 +14,13 @@ struct BookResponse: Codable {
 struct AboutBook: Codable {
     let katkisiOlanlar:[Authors]
     let adi: String?
-    let kitapResim: String?
+    let kitapResim: URL?
     let puan: String?
     let okuyanKisiSayisi: String?
     let begeniDuz: Int?
     let gosterimDuz: Int?
     let puanVerenKisi: String?
-    let yazar: String
+    let yazar: String?
     
     enum CodingKeys: String, CodingKey {
             case adi, puan, begeniDuz, gosterimDuz

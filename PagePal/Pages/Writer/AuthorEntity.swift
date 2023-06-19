@@ -12,7 +12,7 @@ struct AuthorResponse: Codable {
 struct AboutAuthor:Codable{
     let ozellik : [Skills]
     let authorName: String?
-    let resim: String?
+    let resim: URL?
     let puan: String?
     let puanVerenKisi: String?
     let okuyanKisiSayisi: String?
