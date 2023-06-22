@@ -25,9 +25,10 @@ final class SearchViewModel: ObservableObject{
     
     init(dataController: SearchDataController) {
         self.dataController = dataController
+        setupBindings()
     }
     
-    func setupBindings() {
+   private func setupBindings() {
             $searchText
             .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
             .removeDuplicates()
@@ -37,7 +38,7 @@ final class SearchViewModel: ObservableObject{
                 .store(in: &cancellables)
         }
     
-    func handleSearchTextChange(_ searchText: String) {
+    private func handleSearchTextChange(_ searchText: String) {
         dataController.fetchData(searchText: searchText) { result in
             switch result {
             case .success(let data):
@@ -57,7 +58,7 @@ final class SearchViewModel: ObservableObject{
         //    print("Arama metni: \(searchText)")
     }
     
-    func parseData(_ data: Data) -> [SearchResult] {
+  private  func parseData(_ data: Data) -> [SearchResult] {
         do {
             let json = try JSONSerialization.jsonObject(with: data, options: [])
             

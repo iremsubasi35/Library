@@ -21,7 +21,7 @@
 		663B1B202A3D0AF700309366 /* BookDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B1B1F2A3D0AF700309366 /* BookDataController.swift */; };
 		663B1B222A3F1F7E00309366 /* BookEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B1B212A3F1F7E00309366 /* BookEntity.swift */; };
 		663B1B242A3F3E0700309366 /* AuthorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B1B232A3F3E0700309366 /* AuthorEntity.swift */; };
-		663B1B262A407B5E00309366 /* SearchEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B1B252A407B5E00309366 /* SearchEntity.swift */; };
+		663B1B262A407B5E00309366 /* SeachResponseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B1B252A407B5E00309366 /* SeachResponseModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,7 +40,7 @@
 		663B1B1F2A3D0AF700309366 /* BookDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDataController.swift; sourceTree = "<group>"; };
 		663B1B212A3F1F7E00309366 /* BookEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookEntity.swift; sourceTree = "<group>"; };
 		663B1B232A3F3E0700309366 /* AuthorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorEntity.swift; sourceTree = "<group>"; };
-		663B1B252A407B5E00309366 /* SearchEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEntity.swift; sourceTree = "<group>"; };
+		663B1B252A407B5E00309366 /* SeachResponseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeachResponseModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +106,7 @@
 				663B1B0E2A3C998C00309366 /* SearchView.swift */,
 				663B1B102A3C99B500309366 /* SearchViewModel.swift */,
 				663B1B122A3C99C300309366 /* SearchDataController.swift */,
-				663B1B252A407B5E00309366 /* SearchEntity.swift */,
+				663B1B252A407B5E00309366 /* SeachResponseModels.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -211,7 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				663B1B202A3D0AF700309366 /* BookDataController.swift in Sources */,
-				663B1B262A407B5E00309366 /* SearchEntity.swift in Sources */,
+				663B1B262A407B5E00309366 /* SeachResponseModels.swift in Sources */,
 				663B1B152A3CE1F200309366 /* AuthorView.swift in Sources */,
 				663B1B112A3C99B500309366 /* SearchViewModel.swift in Sources */,
 				663B1B192A3CE21200309366 /* AuthorDataController.swift in Sources */,

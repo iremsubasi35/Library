@@ -12,7 +12,7 @@ struct SearchResponse: Codable {
 }
 
 struct Results: Codable{
-    let icerik : [Content]
+    let icerik : Content?
     let name : String?
     let turu : String?
 }

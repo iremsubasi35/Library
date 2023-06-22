@@ -9,6 +9,7 @@ import Foundation
 
 struct BookResponse: Codable {
     let kitap : AboutBook?
+    let gonderiler: Posts?
 }
 
 struct AboutBook: Codable {
@@ -39,6 +40,10 @@ struct Authors: Codable{
         case adi
         case gorevi = "kitapYazarTurBaslik"
     }
+}
+
+struct Posts: Codable{
+    
 }
 // gonderileri index 1 
 
