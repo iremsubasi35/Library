@@ -6,35 +6,65 @@
 //
 
 import Foundation
+import Combine
 
 final class BookDataController: ObservableObject{
+    private var cancellables = Set<AnyCancellable>()
+    private var apiManager: APIManager
     
-    func fetchData(bookId: String, completion: @escaping (Result<Data, Error>) -> Void) {
-            let baseURLString = "https://z.1000kitap.com/kitapCek?id="
-            let completedURLString = "&bolum=genel-bakis&magazaId=&puan=&q=&sayfa=1&kume=-1&z=0&us=0&fr=1"
-            let urlString = baseURLString + bookId.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)! + completedURLString
-            
-            guard let url = URL(string: urlString) else {
-                let error = NSError(domain: "Invalid URL", code: 0, userInfo: nil)
-                completion(.failure(error))
-                return
-            }
-            
-            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
-                
-                guard let data = data else {
-                    let error = NSError(domain: "No Data", code: 0, userInfo: nil)
-                    completion(.failure(error))
-                    return
-                }
-                
-                completion(.success(data))
-            }
-            
-            task.resume()
+    init(apiManager: APIManager) {
+            self.apiManager = apiManager
         }
+    
+    func fetchData(with searchText: String, completion: @escaping (Result<BookResponse, Error>) -> Void) {
+
+               apiManager.bookRequestData(with: searchText)
+                   .sink { completion in
+                       switch completion {
+                       case .finished:
+                           break
+                       case .failure(let error):
+                           print("Hata oluştu: \(error)")
+                       }
+                   } receiveValue: { data in
+                       do {
+                           let searchData = try JSONDecoder().decode(BookResponse.self, from: data)
+                           completion(.success(searchData))
+                       } catch {
+                           completion(.failure(error))
+                       }
+                   }
+                   .store(in: &cancellables)
+           }
+    
+    func parseData(_ bookPresentationData: BookResponse) -> BookPresentation {
+        var presentation = BookPresentation()
+        presentation.bookImage = URL(string: bookPresentationData.kitap.resim) 
+        presentation.bookName = bookPresentationData.kitap.adi
+        presentation.bookAuthor = bookPresentationData.kitap.yazarAdi
+        presentation.score = bookPresentationData.kitap.puan
+        presentation.valuation = bookPresentationData.kitap.puanKisiDuz
+        presentation.read = bookPresentationData.kitap.okudu
+        presentation.likes = bookPresentationData.kitap.begeniDuz
+        presentation.impression = bookPresentationData.kitap.gosterimDuz
+        
+        if let gonderi = bookPresentationData.gonderiler.first,
+           let hakkinda = gonderi.hakkinda {
+            presentation.pageNumber = hakkinda.sayfasayisi
+            presentation.originalName = hakkinda.orijinaladi
+            presentation.explanation = hakkinda.bilgi
+        }
+//        if let information = bookPresentationData.gonderiler.first,
+//           let yazarlar = bookPresentationData.kitap.yazarlar.first{
+//            let yazar = bookPresentationData.kitap.yazarlar[1]
+//            if let name = bookPresentationData.kitap.yazarlar[1].adi,
+//               let image = bookPresentationData.kitap.yazarlar[1].resim{
+//                presentation.translatorName = name
+//                presentation.translatorImage = URL(string: image)
+//            }
+//        }
+           
+        
+        return presentation
+    }
 }

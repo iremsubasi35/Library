@@ -10,9 +10,13 @@ import Combine
 
 final class SearchDataController: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
+    private var apiManager: APIManager
+    
+    init(apiManager: APIManager) {
+            self.apiManager = apiManager
+        }
    
 func fetchData(with searchText: String, completion: @escaping (Result<SearchResponse, Error>) -> Void) {
-           let apiManager = APIManager()
 
            apiManager.searchRequestData(with: searchText)
                .sink { completion in

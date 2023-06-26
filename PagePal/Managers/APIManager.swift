@@ -38,6 +38,7 @@ final class APIManager {
             .eraseToAnyPublisher()
     }
     
+    // search text = seo_adi in json
     func authorRequestData(with searchText: String) -> AnyPublisher<Data, Error> {
         let baseURLString = "https://z.1000kitap.com/yazarCekV2?id="
         let completedURLString = "&bolum=genel-bakis&q=&sayfa=1&kume=-1&z=0&us=0&fr=1"
@@ -66,6 +67,7 @@ final class APIManager {
             .eraseToAnyPublisher()
     }
     
+    // search text = kadi in json
     func bookRequestData(with searchText: String) -> AnyPublisher<Data, Error> {
         let baseURLString = "https://z.1000kitap.com/kitapCek?id="
         let completedURLString = "&bolum=genel-bakis&magazaId=&puan=&q=&sayfa=1&kume=-1&z=0&us=0&fr=1"

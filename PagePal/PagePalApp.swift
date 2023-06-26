@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct PagePalApp: App {
     private let searchView: SearchView = {
-            let dataController = SearchDataController()
+        let dataController = SearchDataController(apiManager: APIManager())
             let viewModel = SearchViewModel(dataController: dataController)
             let view = SearchView(viewModel: viewModel)
             return view
