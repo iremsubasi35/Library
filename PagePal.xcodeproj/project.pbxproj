@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06ABDFEA2A45AD2100684145 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06ABDFE92A45AD2100684145 /* APIManager.swift */; };
 		663B1AFD2A3C98E000309366 /* PagePalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B1AFC2A3C98E000309366 /* PagePalApp.swift */; };
 		663B1B012A3C98E200309366 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 663B1B002A3C98E200309366 /* Assets.xcassets */; };
 		663B1B042A3C98E200309366 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 663B1B032A3C98E200309366 /* Preview Assets.xcassets */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06ABDFE92A45AD2100684145 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		663B1AF92A3C98E000309366 /* PagePal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PagePal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		663B1AFC2A3C98E000309366 /* PagePalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagePalApp.swift; sourceTree = "<group>"; };
 		663B1B002A3C98E200309366 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -54,6 +56,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06ABDFE82A45AD0800684145 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				06ABDFE92A45AD2100684145 /* APIManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		663B1AF02A3C98DF00309366 = {
 			isa = PBXGroup;
 			children = (
@@ -73,6 +83,7 @@
 		663B1AFB2A3C98E000309366 /* PagePal */ = {
 			isa = PBXGroup;
 			children = (
+				06ABDFE82A45AD0800684145 /* Managers */,
 				663B1B0A2A3C991D00309366 /* Pages */,
 				663B1AFC2A3C98E000309366 /* PagePalApp.swift */,
 				663B1B002A3C98E200309366 /* Assets.xcassets */,
@@ -216,6 +227,7 @@
 				663B1B112A3C99B500309366 /* SearchViewModel.swift in Sources */,
 				663B1B192A3CE21200309366 /* AuthorDataController.swift in Sources */,
 				663B1B132A3C99C300309366 /* SearchDataController.swift in Sources */,
+				06ABDFEA2A45AD2100684145 /* APIManager.swift in Sources */,
 				663B1B172A3CE20400309366 /* AuthorViewModel.swift in Sources */,
 				663B1B222A3F1F7E00309366 /* BookEntity.swift in Sources */,
 				663B1B1E2A3D0AE000309366 /* BookViewModel.swift in Sources */,

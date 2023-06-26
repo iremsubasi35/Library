@@ -14,31 +14,26 @@ struct SearchView: View {
             self.viewModel = viewModel
         }
     var body: some View {
-        VStack{
-            SearchBar(text: $viewModel.searchText)
-                     Text("Aranan kelime: \(viewModel.searchText)")
-                         
-            Spacer()
-        }.padding(.top,16)
-            .padding(.horizontal,16)
-        VStack{
-            List(viewModel.searchResults) { results in
-                HStack{
-                    AsyncImage(url: results.image) { image in
-                        image.image?.resizable()
+            VStack {
+                SearchBar(text: $viewModel.searchText)
+                
+                Text("Aranan kelime: \(viewModel.searchText)")
+                Spacer()
+                ScrollView {
+                    LazyVStack(spacing: 16) {
+                        ForEach(viewModel.searchResults) { result in
+                            SearchCell(result: result)
+                        }
                     }
-                    VStack{
-                        Text(results.name)
-                        Text(results.job)
-                    }
+                    .padding(.horizontal, 16)
                 }
             }
-        }.padding(.horizontal,16)
-            
-                 .onAppear {
-                  //   viewModel.setupBindings()
+            .padding(.top, 16)
+            .padding(.horizontal, 16)
+            .onAppear {
+                // viewModel.setupBindings()
+            }
         }
-    }
 }
 
 struct SearchBar: UIViewRepresentable {
@@ -71,6 +66,32 @@ struct SearchBar: UIViewRepresentable {
     
     func updateUIView(_ uiView: UISearchBar, context: UIViewRepresentableContext<SearchBar>) {
         uiView.text = text
+    }
+}
+
+struct SearchCell: View {
+    let result: SearchResult
+    
+    var body: some View {
+        HStack(spacing: 16) {
+            AsyncImage(url: result.image) { image in
+                image.image?
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            }
+            .frame(width: 80, height: 80)
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(result.name)
+                    .font(.headline)
+                
+                Text(result.turu)
+                    .font(.subheadline)
+            }
+        }
+        .padding(8)
+        .background(Color.white)
+        .cornerRadius(8)
     }
 }
 

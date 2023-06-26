@@ -9,10 +9,10 @@ import SwiftUI
 
 @main
 struct PagePalApp: App {
-    private let searchView: BookView = {
-            let dataController = BookDataController()
-            let viewModel = BookViewModel(dataController: dataController)
-            let view = BookView(viewModel: viewModel)
+    private let searchView: SearchView = {
+            let dataController = SearchDataController()
+            let viewModel = SearchViewModel(dataController: dataController)
+            let view = SearchView(viewModel: viewModel)
             return view
         }()
     var body: some Scene {
