@@ -16,8 +16,6 @@ struct SearchView: View {
     var body: some View {
             VStack {
                 SearchBar(text: $viewModel.searchText)
-                
-                Text("Aranan kelime: \(viewModel.searchText)")
                 Spacer()
                 ScrollView {
                     LazyVStack(spacing: 16) {
@@ -79,8 +77,7 @@ struct SearchCell: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
-            .frame(width: 80, height: 80)
-            
+            .frame(width: 60, height: 60)
             VStack(alignment: .leading, spacing: 4) {
                 Text(result.name)
                     .font(.headline)
@@ -88,10 +85,10 @@ struct SearchCell: View {
                 Text(result.turu)
                     .font(.subheadline)
             }
+            Spacer()
         }
-        .padding(8)
+        .padding(.horizontal,8)
         .background(Color.white)
-        .cornerRadius(8)
     }
 }
 

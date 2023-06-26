@@ -20,8 +20,8 @@
 		663B1B1C2A3D0ACE00309366 /* BookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B1B1B2A3D0ACE00309366 /* BookView.swift */; };
 		663B1B1E2A3D0AE000309366 /* BookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B1B1D2A3D0AE000309366 /* BookViewModel.swift */; };
 		663B1B202A3D0AF700309366 /* BookDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B1B1F2A3D0AF700309366 /* BookDataController.swift */; };
-		663B1B222A3F1F7E00309366 /* BookEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B1B212A3F1F7E00309366 /* BookEntity.swift */; };
-		663B1B242A3F3E0700309366 /* AuthorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B1B232A3F3E0700309366 /* AuthorEntity.swift */; };
+		663B1B222A3F1F7E00309366 /* BookResponseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B1B212A3F1F7E00309366 /* BookResponseModels.swift */; };
+		663B1B242A3F3E0700309366 /* AuthorResponseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B1B232A3F3E0700309366 /* AuthorResponseModels.swift */; };
 		663B1B262A407B5E00309366 /* SeachResponseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B1B252A407B5E00309366 /* SeachResponseModels.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,8 +40,8 @@
 		663B1B1B2A3D0ACE00309366 /* BookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookView.swift; sourceTree = "<group>"; };
 		663B1B1D2A3D0AE000309366 /* BookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewModel.swift; sourceTree = "<group>"; };
 		663B1B1F2A3D0AF700309366 /* BookDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDataController.swift; sourceTree = "<group>"; };
-		663B1B212A3F1F7E00309366 /* BookEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookEntity.swift; sourceTree = "<group>"; };
-		663B1B232A3F3E0700309366 /* AuthorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorEntity.swift; sourceTree = "<group>"; };
+		663B1B212A3F1F7E00309366 /* BookResponseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookResponseModels.swift; sourceTree = "<group>"; };
+		663B1B232A3F3E0700309366 /* AuthorResponseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorResponseModels.swift; sourceTree = "<group>"; };
 		663B1B252A407B5E00309366 /* SeachResponseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeachResponseModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,7 +135,7 @@
 				663B1B142A3CE1F200309366 /* AuthorView.swift */,
 				663B1B162A3CE20400309366 /* AuthorViewModel.swift */,
 				663B1B182A3CE21200309366 /* AuthorDataController.swift */,
-				663B1B232A3F3E0700309366 /* AuthorEntity.swift */,
+				663B1B232A3F3E0700309366 /* AuthorResponseModels.swift */,
 			);
 			path = Writer;
 			sourceTree = "<group>";
@@ -146,7 +146,7 @@
 				663B1B1B2A3D0ACE00309366 /* BookView.swift */,
 				663B1B1D2A3D0AE000309366 /* BookViewModel.swift */,
 				663B1B1F2A3D0AF700309366 /* BookDataController.swift */,
-				663B1B212A3F1F7E00309366 /* BookEntity.swift */,
+				663B1B212A3F1F7E00309366 /* BookResponseModels.swift */,
 			);
 			path = Book;
 			sourceTree = "<group>";
@@ -229,10 +229,10 @@
 				663B1B132A3C99C300309366 /* SearchDataController.swift in Sources */,
 				06ABDFEA2A45AD2100684145 /* APIManager.swift in Sources */,
 				663B1B172A3CE20400309366 /* AuthorViewModel.swift in Sources */,
-				663B1B222A3F1F7E00309366 /* BookEntity.swift in Sources */,
+				663B1B222A3F1F7E00309366 /* BookResponseModels.swift in Sources */,
 				663B1B1E2A3D0AE000309366 /* BookViewModel.swift in Sources */,
 				663B1B0F2A3C998C00309366 /* SearchView.swift in Sources */,
-				663B1B242A3F3E0700309366 /* AuthorEntity.swift in Sources */,
+				663B1B242A3F3E0700309366 /* AuthorResponseModels.swift in Sources */,
 				663B1AFD2A3C98E000309366 /* PagePalApp.swift in Sources */,
 				663B1B1C2A3D0ACE00309366 /* BookView.swift in Sources */,
 			);

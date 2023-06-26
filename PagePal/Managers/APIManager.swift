@@ -9,7 +9,8 @@ import Foundation
 import Combine
 
 final class APIManager {
-    func requestData(with searchText: String) -> AnyPublisher<Data, Error> {
+    
+    func searchRequestData(with searchText: String) -> AnyPublisher<Data, Error> {
         let baseURLString = "https://z.1000kitap.com/ara?q="
         let completedURLString = "&sadece=&us=0&fr=1"
         let urlString = baseURLString + searchText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)! + completedURLString
@@ -20,11 +21,78 @@ final class APIManager {
         }
         
         return URLSession.shared.dataTaskPublisher(for: url)
-            .mapError { $0 as Error }
-            .map { $0.data }
+            .tryMap { data, response -> Data in
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    throw URLError(.badServerResponse)
+                }
+                
+                guard (200...299).contains(httpResponse.statusCode) else {
+                    throw URLError(.badServerResponse)
+                }
+                
+                return data
+            }
+            .mapError { error -> Error in
+                return error
+            }
             .eraseToAnyPublisher()
     }
     
+    func authorRequestData(with searchText: String) -> AnyPublisher<Data, Error> {
+        let baseURLString = "https://z.1000kitap.com/yazarCekV2?id="
+        let completedURLString = "&bolum=genel-bakis&q=&sayfa=1&kume=-1&z=0&us=0&fr=1"
+        let urlString = baseURLString + searchText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)! + completedURLString
+        
+        guard let url = URL(string: urlString) else {
+            let error = NSError(domain: "Invalid URL", code: 0, userInfo: nil)
+            return Fail(error: error).eraseToAnyPublisher()
+        }
+        
+        return URLSession.shared.dataTaskPublisher(for: url)
+            .tryMap { data, response -> Data in
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    throw URLError(.badServerResponse)
+                }
+                
+                guard (200...299).contains(httpResponse.statusCode) else {
+                    throw URLError(.badServerResponse)
+                }
+                
+                return data
+            }
+            .mapError { error -> Error in
+                return error
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    func bookRequestData(with searchText: String) -> AnyPublisher<Data, Error> {
+        let baseURLString = "https://z.1000kitap.com/kitapCek?id="
+        let completedURLString = "&bolum=genel-bakis&magazaId=&puan=&q=&sayfa=1&kume=-1&z=0&us=0&fr=1"
+        let urlString = baseURLString + searchText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)! + completedURLString
+        
+        guard let url = URL(string: urlString) else {
+            let error = NSError(domain: "Invalid URL", code: 0, userInfo: nil)
+            return Fail(error: error).eraseToAnyPublisher()
+        }
+        
+        return URLSession.shared.dataTaskPublisher(for: url)
+            .tryMap { data, response -> Data in
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    throw URLError(.badServerResponse)
+                }
+                
+                guard (200...299).contains(httpResponse.statusCode) else {
+                    throw URLError(.badServerResponse)
+                }
+                
+                return data
+            }
+            .mapError { error -> Error in
+                return error
+            }
+            .eraseToAnyPublisher()
+    }
     
 }
 

@@ -38,32 +38,20 @@ final class SearchViewModel: ObservableObject {
     }
     
     private func handleSearchTextChange(_ searchText: String) {
-            dataController.fetchDataa(with: searchText) { [weak self] result in
-                switch result {
-                case .success(let data):
-                    do {
-                        let searchResponse = try JSONDecoder().decode(SearchResponse.self, from: data)
-                        DispatchQueue.main.async {
-                            if let firstResult = searchResponse.sonuclar.first {
-                                self?.searchResults = [SearchResult(image: URL(string: firstResult.icerik?.resim ?? ""),
-                                                                  name: firstResult.name ?? "",
-                                                                  turu: firstResult.turu ?? "")]
-                            } else {
-                                self?.searchResults = []
-                            }
-                        }
-                    } catch {
-                        print("JSON decode hatası: \(error.localizedDescription)")
-                        DispatchQueue.main.async {
-                            self?.searchResults = []
-                        }
-                    }
-                case .failure(let error):
-                                print("Hata oluştu: \(error)")
-                                DispatchQueue.main.async {
-                                    self?.searchResults = []
-                                }
-                            }
-                        }
-                    }
+        dataController.fetchData(with: searchText) { [weak self] result in
+            switch result {
+            case .success(let searchData):
+                DispatchQueue.main.async {
+                    let searchResults = self!.dataController.parseData(searchData) //should be optional
+                    self?.searchResults = searchResults
+                }
+            case .failure(let error):
+                print("Hata oluştu: \(error)")
+                DispatchQueue.main.async {
+                    self?.searchResults = []
+                }
+            }
+        }
+    }
+
 }
