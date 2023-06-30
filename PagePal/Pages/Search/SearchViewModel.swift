@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-struct SearchResult: Identifiable {
+struct SearchResultPresentation: Identifiable {
     let id: UUID = .init()
     var image: URL? = nil
     var name: String = ""
@@ -17,7 +17,7 @@ struct SearchResult: Identifiable {
 
 final class SearchViewModel: ObservableObject {
     private var dataController: SearchDataController
-    @Published var searchResults: [SearchResult] = []
+    @Published var searchResults: [SearchResultPresentation] = []
     @Published var searchText: String = ""
     
     private var cancellables: Set<AnyCancellable> = []
@@ -35,23 +35,48 @@ final class SearchViewModel: ObservableObject {
                 self?.handleSearchTextChange(searchText)
             }
             .store(in: &cancellables)
-    }
-    
-    private func handleSearchTextChange(_ searchText: String) {
-        dataController.fetchData(with: searchText) { [weak self] result in
-            switch result {
-            case .success(let searchData):
-                DispatchQueue.main.async {
-                    let searchResults = self!.dataController.parseData(searchData) //should be optional
-                    self?.searchResults = searchResults
+        dataController.currentState
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self]  state in
+                guard let self = self else {
+                    return
                 }
-            case .failure(let error):
-                print("Hata oluştu: \(error)")
-                DispatchQueue.main.async {
-                    self?.searchResults = []
+                self.processControlPresentation()
+            }
+            .store(in: &cancellables)
+        dataController.dto
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] searchDTOs in
+                guard let self = self else { return }
+                
+                let searchResultPresentations = searchDTOs.map { dto in
+                    return SearchResultPresentation(image: dto.image, name: dto.name, turu: dto.turu)
+                }
+                self.searchResults = searchResultPresentations
+            }
+            .store(in: &cancellables)
+        dataController.error
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                guard let self = self else {
+                    return
                 }
             }
-        }
+            .store(in: &cancellables)
     }
-
+       
+    
+    
+    private func handleSearchTextChange(_ searchText: String) {
+        dataController.fetchData(with: searchText)
+    }
+    
+    func processControlPresentation(){
+                if dataController.currentState.value == .working {
+                 
+                } else {
+                  
+                }
+        }
+        
 }

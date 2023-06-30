@@ -68,7 +68,7 @@ struct SearchBar: UIViewRepresentable {
 }
 
 struct SearchCell: View {
-    let result: SearchResult
+    let result: SearchResultPresentation
     
     var body: some View {
         HStack(spacing: 16) {

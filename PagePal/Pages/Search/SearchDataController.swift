@@ -8,41 +8,69 @@
 import Foundation
 import Combine
 
-final class SearchDataController: ObservableObject {
+struct SearchDataTransferObject: Identifiable{
+    var id: UUID = .init()
+    let image: URL?
+    let name: String
+    let turu : String
+}
+
+enum SearchDataControllerState{
+    case idle
+    case working
+}
+
+final class SearchDataController {
     private var cancellables = Set<AnyCancellable>()
     private var apiManager: APIManager
+    private (set) var currentState = CurrentValueSubject<SearchDataControllerState,Never>(.idle)
+    private (set) var dto = CurrentValueSubject<[SearchDataTransferObject],Never>([])
+    private (set) var error = PassthroughSubject<Error?,Never>()
     
     init(apiManager: APIManager) {
             self.apiManager = apiManager
         }
    
-func fetchData(with searchText: String, completion: @escaping (Result<SearchResponse, Error>) -> Void) {
-
+func fetchData(with searchText: String) {
+    guard currentState.value == .idle else {
+        return
+    }
+    currentState.send(.working)
+    
            apiManager.searchRequestData(with: searchText)
-               .sink { completion in
+               .sink { [weak self] completion in
                    switch completion {
                    case .finished:
-                       break
+                       self?.currentState.send(.idle)
                    case .failure(let error):
+                       self?.error.send(error)
                        print("Hata oluştu: \(error)")
                    }
                } receiveValue: { data in
                    do {
-                       let searchData = try JSONDecoder().decode(SearchResponse.self, from: data)
-                       completion(.success(searchData))
+                       let searchResponse = try JSONDecoder().decode(SearchResponse.self, from: data)
+                     let searchDataTransferObject =  self.parseData(searchResponse)
+                       self.dto.send(searchDataTransferObject)
                    } catch {
-                       completion(.failure(error))
+                       self.error.send(error)
                    }
                }
                .store(in: &cancellables)
        }
     
-        func parseData(_ searchData: SearchResponse) -> [SearchResult] {
-            return searchData.sonuclar.map { result in
-                return SearchResult(image: URL(string: result.icerik?.resim ?? ""),
-                                    name: result.name ?? "",
-                                    turu: result.turu ?? "")
+    func parseData(_ searchData: SearchResponse) -> [SearchDataTransferObject] {
+        
+        let searchDTOs = searchData.sonuclar.compactMap { result in
+                let imageURL = URL(string: result.icerik?.resim ?? "")
+                let name = result.name ?? ""
+                let turu = result.turu ?? ""
+                
+                return SearchDataTransferObject(image: imageURL, name: name, turu: turu)
             }
-        }
+            
+            
+            return searchDTOs
+    }
+
 }
 

@@ -105,7 +105,6 @@
 			children = (
 				663B1B1A2A3D0A9200309366 /* Book */,
 				663B1B0D2A3C995500309366 /* Writer */,
-				663B1B0C2A3C993D00309366 /* Reader */,
 				663B1B0B2A3C992600309366 /* Search */,
 			);
 			path = Pages;
@@ -120,13 +119,6 @@
 				663B1B252A407B5E00309366 /* SeachResponseModels.swift */,
 			);
 			path = Search;
-			sourceTree = "<group>";
-		};
-		663B1B0C2A3C993D00309366 /* Reader */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Reader;
 			sourceTree = "<group>";
 		};
 		663B1B0D2A3C995500309366 /* Writer */ = {
