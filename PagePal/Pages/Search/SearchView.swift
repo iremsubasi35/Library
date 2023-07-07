@@ -20,7 +20,13 @@ struct SearchView: View {
                 ScrollView {
                     LazyVStack(spacing: 16) {
                         ForEach(viewModel.searchResults) { result in
-                            SearchCell(result: result)
+                            NavigationLink{
+                                if let detailView = viewModel.detailView(selectedItem: result){
+                                    detailView
+                                }
+                            }label: {
+                                SearchCell(result: result)
+                            }
                         }
                     }
                     .padding(.horizontal, 16)

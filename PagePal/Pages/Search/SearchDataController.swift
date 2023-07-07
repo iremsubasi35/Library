@@ -13,6 +13,9 @@ struct SearchDataTransferObject: Identifiable{
     let image: URL?
     let name: String
     let turu : String
+    let seoName: String?
+    let identifier: String
+    let username: String?
 }
 
 enum SearchDataControllerState{
@@ -52,6 +55,7 @@ func fetchData(with searchText: String) {
                      let searchDataTransferObject =  self.parseData(searchResponse)
                        self.dto.send(searchDataTransferObject)
                    } catch {
+                       print("error: \(error)")
                        self.error.send(error)
                    }
                }
@@ -59,18 +63,29 @@ func fetchData(with searchText: String) {
        }
     
     func parseData(_ searchData: SearchResponse) -> [SearchDataTransferObject] {
-        
-        let searchDTOs = searchData.sonuclar.compactMap { result in
+
+        let searchDTOs:[SearchDataTransferObject] = searchData.sonuclar.compactMap { result in
+            guard let type = result.turu, type != "etiket"
+            else {
+                return nil
+            }
                 let imageURL = URL(string: result.icerik?.resim ?? "")
                 let name = result.name ?? ""
                 let turu = result.turu ?? ""
-                
-                return SearchDataTransferObject(image: imageURL, name: name, turu: turu)
+            let identifier = result.icerik?.id ?? ""
+            let seoname = result.icerik?.seoAdi
+            let username = result.icerik?.username
+
+                return SearchDataTransferObject(image: imageURL, name: name,
+                    turu: turu,
+                    seoName: seoname,
+                    identifier: identifier,
+                    username: username)
             }
-            
-            
+
+
             return searchDTOs
     }
-
+ 
 }
 

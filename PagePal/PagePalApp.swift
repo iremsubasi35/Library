@@ -17,7 +17,9 @@ struct PagePalApp: App {
         }()
     var body: some Scene {
         WindowGroup {
-            searchView
+            NavigationView{
+                searchView
+            }
         }
     }
 }

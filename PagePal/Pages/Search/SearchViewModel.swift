@@ -7,12 +7,16 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 struct SearchResultPresentation: Identifiable {
     let id: UUID = .init()
-    var image: URL? = nil
-    var name: String = ""
-    var turu: String = ""
+    let image: URL?
+    let name: String
+    let turu: String
+    let identifier: String
+    let seoName: String
+    let userName: String
 }
 
 final class SearchViewModel: ObservableObject {
@@ -50,7 +54,11 @@ final class SearchViewModel: ObservableObject {
                 guard let self = self else { return }
                 
                 let searchResultPresentations = searchDTOs.map { dto in
-                    return SearchResultPresentation(image: dto.image, name: dto.name, turu: dto.turu)
+                    return SearchResultPresentation(image: dto.image, name: dto.name,
+                        turu: dto.turu,
+                        identifier: dto.identifier,
+                        seoName: dto.seoName ?? "",
+                        userName: dto.username ?? "")
                 }
                 self.searchResults = searchResultPresentations
             }
@@ -78,5 +86,23 @@ final class SearchViewModel: ObservableObject {
                   
                 }
         }
+    func detailView(selectedItem: SearchResultPresentation)-> AnyView{
+        switch selectedItem.turu {
+        case "okur":
+            return AnyView(EmptyView())
+        case "yazar":
+            let dataController = AuthorDataController(apiManager: APIManager())
+            let viewModel = AuthorViewModel(dataController: dataController)
+            let view = AuthorView(viewModel: viewModel)
+            return AnyView(view)
+        case "kitap":
+            let dataController = BookDataController(apiManager: APIManager())
+            let viewModel = BookViewModel(dataController: dataController)
+            let view = BookView(viewModel: viewModel)
+            return AnyView(view)
+        default:
+            return AnyView(EmptyView())
+        }
+    }
         
 }
