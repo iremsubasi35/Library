@@ -35,7 +35,7 @@ struct SearchView: View {
             .padding(.top, 16)
             .padding(.horizontal, 16)
             .onAppear {
-                // viewModel.setupBindings()
+                
             }
         }
 }

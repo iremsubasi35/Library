@@ -39,10 +39,40 @@ final class APIManager {
     }
     
     // search text = seo_adi in json
-    func authorRequestData(with searchText: String) -> AnyPublisher<Data, Error> {
+    func authorRequestData(with id: String) -> AnyPublisher<Data, Error> {
         let baseURLString = "https://z.1000kitap.com/yazarCekV2?id="
         let completedURLString = "&bolum=genel-bakis&q=&sayfa=1&kume=-1&z=0&us=0&fr=1"
-        let urlString = baseURLString + searchText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)! + completedURLString
+        let urlString = baseURLString + id.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)! + completedURLString
+        print(urlString)
+        guard let url = URL(string: urlString) else {
+            let error = NSError(domain: "Invalid URL", code: 0, userInfo: nil)
+            return Fail(error: error).eraseToAnyPublisher()
+        }
+        
+        return URLSession.shared.dataTaskPublisher(for: url)
+            .tryMap { data, response -> Data in
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    throw URLError(.badServerResponse)
+                }
+                
+                guard (200...299).contains(httpResponse.statusCode) else {
+                    throw URLError(.badServerResponse)
+                }
+                let text = String(data: data, encoding: .utf8)
+                print(text)
+                return data
+            }
+            .mapError { error -> Error in
+                return error
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // search text = kadi in json
+    func bookRequestData(with id: String) -> AnyPublisher<Data, Error> {
+        let baseURLString = "https://z.1000kitap.com/kitapCek?id="
+        let completedURLString = "&bolum=genel-bakis&magazaId=&puan=&q=&sayfa=1&kume=-1&z=0&us=0&fr=1"
+        let urlString = baseURLString + id.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)! + completedURLString
         
         guard let url = URL(string: urlString) else {
             let error = NSError(domain: "Invalid URL", code: 0, userInfo: nil)
@@ -67,11 +97,10 @@ final class APIManager {
             .eraseToAnyPublisher()
     }
     
-    // search text = kadi in json
-    func bookRequestData(with searchText: String) -> AnyPublisher<Data, Error> {
+    func userRequestData(with id: String) -> AnyPublisher<Data, Error> {
         let baseURLString = "https://z.1000kitap.com/kitapCek?id="
         let completedURLString = "&bolum=genel-bakis&magazaId=&puan=&q=&sayfa=1&kume=-1&z=0&us=0&fr=1"
-        let urlString = baseURLString + searchText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)! + completedURLString
+        let urlString = baseURLString + id.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)! + completedURLString
         
         guard let url = URL(string: urlString) else {
             let error = NSError(domain: "Invalid URL", code: 0, userInfo: nil)

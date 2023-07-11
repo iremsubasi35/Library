@@ -89,14 +89,17 @@ final class SearchViewModel: ObservableObject {
     func detailView(selectedItem: SearchResultPresentation)-> AnyView{
         switch selectedItem.turu {
         case "okur":
-            return AnyView(EmptyView())
+            let dataController = UserDataController(apiManager: APIManager(), userId: selectedItem.userName)
+            let viewModel = UserViewModel(dataController: dataController)
+            let view = UserView(viewModel: viewModel)
+            return AnyView(view)
         case "yazar":
-            let dataController = AuthorDataController(apiManager: APIManager())
+            let dataController = AuthorDataController(apiManager: APIManager(), authorId: selectedItem.seoName)
             let viewModel = AuthorViewModel(dataController: dataController)
             let view = AuthorView(viewModel: viewModel)
             return AnyView(view)
         case "kitap":
-            let dataController = BookDataController(apiManager: APIManager())
+            let dataController = BookDataController(apiManager: APIManager(), bookId: selectedItem.identifier)
             let viewModel = BookViewModel(dataController: dataController)
             let view = BookView(viewModel: viewModel)
             return AnyView(view)

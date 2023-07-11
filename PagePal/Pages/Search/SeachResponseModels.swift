@@ -25,9 +25,9 @@ struct Content: Codable {
 
     enum CodingKeys: String, CodingKey {
         case resim = "resim"
-        case seoAdi = "seoadi"
-        case id = "id"
-        case username = "kadi"
+        case seoAdi = "seo_adi"// author
+        case id = "id" // book
+        case username = "kadi" // user
     }
     
     init(from decoder: Decoder) throws {
@@ -42,5 +42,6 @@ struct Content: Codable {
             self.resim = try container.decodeIfPresent(String.self, forKey: .resim)
             self.seoAdi = try container.decodeIfPresent(String.self, forKey: .seoAdi)
             self.username = try container.decodeIfPresent(String.self, forKey: .username)
+        print("\(self.id): \(self.seoAdi)")
         }
 }

@@ -34,7 +34,7 @@ final class SearchDataController {
             self.apiManager = apiManager
         }
    
-func fetchData(with searchText: String) {
+   func fetchData(with searchText: String) {
     guard currentState.value == .idle else {
         return
     }
@@ -62,7 +62,7 @@ func fetchData(with searchText: String) {
                .store(in: &cancellables)
        }
     
-    func parseData(_ searchData: SearchResponse) -> [SearchDataTransferObject] {
+ private   func parseData(_ searchData: SearchResponse) -> [SearchDataTransferObject] {
 
         let searchDTOs:[SearchDataTransferObject] = searchData.sonuclar.compactMap { result in
             guard let type = result.turu, type != "etiket"
